@@ -87,16 +87,15 @@ void Common::GetSystemInformation() {
 }
 
 void Common::WelcomeBanner() {
-    stringstream msg;
-    msg     << "starting "
-            << SYSINFO.sysname
-            << "(version "
-            << SYSINFO.version
-            << ")";
-    string output;
-    msg >> output;
+    string msg;
+    msg.append("starting ");
+    msg.append(SYSINFO.sysname);
+    msg.append(" (version ");
+    msg.append(SYSINFO.release);
+    msg.append(")");
+
     Common::Log(
         "cascade",
-        output
+        msg
     );
 }

@@ -346,7 +346,6 @@ class init:
                 proc.wait()
             count += 1
 
-            
     def main(argv):
         common.clear_screen()
         common.log("runtimed", "handoff complete.", quiet=True)

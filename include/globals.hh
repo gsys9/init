@@ -7,7 +7,7 @@
 
 using namespace std;
 
-#define NOLOAD_EMERGENCY
+#define NOLOAD_EMERGENCY    true
 #define ID_COUNT            0
 #define ENABLE_COLORS
 #define LOCALE              "ENGLISH"
