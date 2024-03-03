@@ -13,3 +13,7 @@ void SignalHandlers::HandleSIGCHLD(int) {
     while (waitpid(-1, NULL, WNOHANG) > 0); 
     alarm(TIMEO);
 }
+
+void SignalHandlers::TriggerAlarm() {
+    alarm(TIMEO);
+}

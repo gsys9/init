@@ -4,6 +4,8 @@
 #include <vector>
 #include <string>
 
+using namespace std;
+
 namespace Init {
     void Main(vector<string>);
 }

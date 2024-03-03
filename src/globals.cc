@@ -10,3 +10,5 @@ string      JOBSDIR;
 
 utsname     SYSINFO;
 bool        SYSINFO_isopen  = false;
+
+int         IDCOUNT;

@@ -8,19 +8,20 @@
 using namespace std;
 
 #define NOLOAD_EMERGENCY    true
-#define ID_COUNT            0
 #define ENABLE_COLORS
 #define LOCALE              "ENGLISH"
 #define TIMEO               30
 
-extern bool        ARGS_TACET;
+extern bool         ARGS_TACET;
 
-extern ofstream    LOGFILE;
-extern bool        LOGFILE_isopen;
+extern ofstream     LOGFILE;
+extern bool         LOGFILE_isopen;
 
-extern string      JOBSDIR;
+extern string       JOBSDIR;
 
-extern utsname     SYSINFO;
-extern bool        SYSINFO_isopen;
+extern utsname      SYSINFO;
+extern bool         SYSINFO_isopen;
+
+extern int          IDCOUNT;
 
 #endif /* GLOBALS_HH */
