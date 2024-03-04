@@ -14,12 +14,8 @@ void Subprocess::InitInternal() {
 }
 
 void Subprocess::WaitInternal() {
-    waitpid(procpid, &returncode, 0);
-    if (procpid == 0) {
-        onfinish();
-    } else {
-        onfinish_error();
-    }
+    waitpid(this -> procpid, &this -> returncode, 0);
+    this -> onfinish(this -> returncode);
 }
 
 Subprocess::Subprocess(string cmd) {
@@ -46,7 +42,7 @@ int Subprocess::Run() {
         Common::Log("subprocess", "failed to spawn child.");
         return 1;
     } 
-    else this -> waitthread = new thread(&this -> WaitInternal);
+    else this -> waitthread = new thread((void (*)(void))&Subprocess::WaitInternal);
     
     return 0;
 }
@@ -55,14 +51,13 @@ int Subprocess::Takeover() {
     char *exec_args[this -> args.size() + 1];
     int counter = 0;
     for (string argument: this -> args) {
-        exec_args[counter] = (const char*)argument.c_str();
+        exec_args[counter] = (char*)argument.c_str();
         counter++;
     }
     exec_args[counter] = NULL;
     return execvp(exec_args[0], exec_args);
 }
 
-void Subprocess::SetFunctionOnFinish(void (*good)(), void (*bad)()) {
-    this -> onfinish = good;
-    this -> onfinish_error = bad;
+void Subprocess::SetFunctionOnFinish(void (*func)(int)) {
+    this -> onfinish = func;
 }

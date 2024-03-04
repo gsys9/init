@@ -11,33 +11,34 @@ using namespace std;
 
 Job::Job() {
     this -> AllocateID();
+    this -> announcement = (void (*)(int))&Job::Announcement;
 }
 
-void Job::Announcement() {
-    if (proc -> returncode == 0) {
-        if (flag_keepalive) {
+void Job::Announcement(int) {
+    if (this -> proc -> returncode == 0) {
+        if (this -> flag_keepalive) {
             Common::Log(
-                idname,
+                this -> idname,
                 "job finished early, restarting...",
                 WARN
             );
-            proc -> Run();
+            this -> proc -> Run();
         } else {
             Common::Log(
-                idname,
+                this -> idname,
                 "job finished successfully.",
                 GOOD
             );
-            hasrun = true;
+            this -> hasrun = true;
         }
     } else {
         stringstream getreturncode;
-        getreturncode << proc -> returncode;
+        getreturncode << this -> proc -> returncode;
         string msg = "job finished with errors [code ";
         getreturncode >> msg;
         msg.append("]");
         Common::Log(
-            idname,
+            this -> idname,
             msg,
             ERROR
         );
@@ -51,7 +52,6 @@ void Job::AllocateID() {
 
 void Job::Execute() {
     this -> proc = new Subprocess(this -> exec);
-
-    this -> proc -> SetFunctionOnFinish(&this -> Announcement, &this -> Announcement);
+    this -> proc -> SetFunctionOnFinish(announcement);
     this -> proc -> Run();
 }

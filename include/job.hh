@@ -9,23 +9,24 @@ using namespace std;
 
 class Job {
 private:
-    static void Announcement(void);
+    void Announcement(int);
+    void (*announcement)(int);
 
 public:
-    static string idname;
-    static string description;
-    static string exec;
-    static int runlevel;
-    static vector<string> depends;
-    static int id;
+    string idname;
+    string description;
+    string exec;
+    int runlevel;
+    vector<string> depends;
+    int id;
 
-    static Subprocess* proc;
+    Subprocess* proc;
 
-    static bool flag_wait;
-    static bool flag_last;
-    static bool flag_keepalive;
+    bool flag_wait;
+    bool flag_last;
+    bool flag_keepalive;
 
-    static bool hasrun;
+    bool hasrun;
 
     void AllocateID(void);
     void Execute(void);

@@ -5,21 +5,21 @@
 #include <string>
 #include <vector>
 #include <thread>
+#include <functional>
 
 using namespace std;
 
 class Subprocess {
 private:
     void InitInternal();
-    static void WaitInternal();
-    thread* waitthread;
+    void WaitInternal();
+    thread *waitthread;
+    void (*onfinish)(int);
 
 public:
-    static pid_t procpid;
-    static int returncode;
-    static void (*onfinish)();
-    static void (*onfinish_error)();
-    static vector<string> args;
+    pid_t procpid;
+    int returncode;
+    vector<string> args;
 
     Subprocess(string);
     Subprocess(vector<string>);
@@ -31,7 +31,7 @@ public:
     // Left as public for the other 1%.
     int Takeover();
 
-    void SetFunctionOnFinish(void (*)(), void (*)());
+    void SetFunctionOnFinish(void (*)(int));
     
 };
 
