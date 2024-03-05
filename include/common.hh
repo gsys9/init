@@ -15,17 +15,22 @@ namespace Common {
         "information is forever lost."
         "\n";
     
-    void ClearScreen            (void);
-    void OpenLog                (void);
+    void                ClearScreen             (void);
+    void                OpenLog                 (void);
 
-    void Log                    (string, string, string, bool);
-    void Log                    (string, string, string);
-    void Log                    (string, string);
+    void                Log                     (string, string, string, bool);
+    void                Log                     (string, string, string);
+    void                Log                     (string, string);
 
-    void Panic                  (void);
-    void Reboot                 (int);
-    void GetSystemInformation   (void);
-    void WelcomeBanner          (void);
+    void                Panic                   (void);
+    void                Reboot                  (int);
+    void                GetSystemInformation    (void);
+    void                WelcomeBanner           (void);
+
+    vector<string>      SplitString             (string, string);
+    void                TrimString              (string&);
+    void                RightTrimString         (string&);
+    void                LeftTrimString          (string&);
 }
 
 #endif /* COMMON_HH */

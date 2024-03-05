@@ -1,0 +1,12 @@
+@nulltarget
+    cfdir       : /usr/share/cascade/init.d
+
+@mountall
+    name        : Mount all filesystems in /etc/fstab
+    exec        : mount -a
+    depends     :
+
+@systemd-udevd
+    name        : udevd Device Manager
+    exec        : /lib/systemd/systemd-udevd
+    depends     : mountall

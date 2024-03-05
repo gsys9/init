@@ -1,15 +1,28 @@
 #include <vector>
 #include <string>
+#include <unordered_map>
+#include <fstream>
 #include <unistd.h>
 #include <sys/wait.h>
 
 #include <globals.hh>
 #include <common.hh>
 #include <color.hh>
+#include <config.hh>
 #include <init.hh>
 #include <signalhandlers.hh>
 
 using namespace std;
+
+void Init::ParseMasterConfig() {
+    ofstream* master_file = new ofstream("/usr/share/cascade/master.cf");
+    Config* master = new Config((fstream*)master_file);
+    
+    vector<string> sections = master -> ListEntities();
+    for (string section: sections) {
+        if (section == "nulltarget") continue;
+    }
+}
 
 void Init::Main(vector<string> argv) {
     Common::OpenLog();

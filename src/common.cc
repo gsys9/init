@@ -1,6 +1,10 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <vector>
+#include <algorithm>
+#include <cctype>
+#include <locale>
 #include <unistd.h>
 #include <sys/utsname.h>
 #include <sys/reboot.h>
@@ -97,5 +101,55 @@ void Common::WelcomeBanner() {
     Common::Log(
         "cascade",
         msg
+    );
+}
+
+vector<string> Common::SplitString(string str, string delim) {
+    string tmp = str;
+    vector<string> total;
+    string cur_elem;
+    bool is_done;
+    while (!is_done) {
+        size_t place = tmp.find(delim);
+        if (place == string::npos) {
+            cur_elem = tmp.substr(0, tmp.size()); 
+            is_done = true;
+        } else {
+            cur_elem = tmp.substr(0, place-1);
+            tmp.replace(0, place+delim.size(), "");
+        }
+        total.push_back(cur_elem);
+    }
+    return total;
+}
+
+void Common::TrimString(string& s) {
+    Common::RightTrimString(s);
+    Common::LeftTrimString(s);
+}
+
+void Common::RightTrimString(string& s) {
+    s.erase(
+        find_if(
+            s.rbegin(), 
+            s.rend(),
+            [](unsigned char ch) {
+                return !isspace(ch);
+            }
+        ).base(), 
+        s.end()
+    );
+}
+
+void Common::LeftTrimString(string& s) {
+    s.erase(
+        s.begin(),
+        find_if(
+            s.begin(), 
+            s.end(),
+            [](unsigned char ch) {
+                return !isspace(ch);
+            }
+        )
     );
 }

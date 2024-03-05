@@ -7,6 +7,7 @@
 using namespace std;
 
 namespace Init {
+    void ParseMasterConfig();
     void Main(vector<string>);
 }
 
