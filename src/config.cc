@@ -51,7 +51,10 @@ int Config::ReadToStore() {
                 Common::Log("config", "failed to parse to table: no table declared", ERROR);
                 continue;
             }
-            section.push_back(Common::SplitString(line, ":"));
+            vector<string> row = Common::SplitString(line, ":");
+            for (string part: row)
+                Common::TrimString(part);
+            section.push_back(row);
         }
     }
     if (section.size() != 0)

@@ -9,10 +9,9 @@
 
 using namespace std;
 
-Job JobFromTable(string idname, vector<vector<string>> table) {
-    Job tmp;
+void JobFromTable(Job* tmp, string idname, vector<vector<string>> table) {
     int count;
-    tmp.idname = idname;
+    tmp -> idname = idname;
     for (vector<string> line: table) {
         if (line.size() != 2) {
             Common::Log("jobmgmt", "record length is not 2");
@@ -21,21 +20,22 @@ Job JobFromTable(string idname, vector<vector<string>> table) {
         if (line[1] == "")
             continue;
         if (line[0] == "description")
-            tmp.description = line[1];
+            tmp -> description = line[1];
+        if (line[0] == "exec")
+            tmp -> exec = line[1];
         if (line[0] == "depends")
-            tmp.depends = Common::SplitString(line[1], " ");
+            tmp -> depends = Common::SplitString(line[1], " ");
         if (line[0] == "flags") {
             if (line[1] == "!") continue;
             for (string item: line) {
                 if (item == "flags") continue;
-                if (item == "+last")        tmp.flag_last = true;
-                if (item == "+keepalive")   tmp.flag_keepalive = true;
-                if (item == "+wait")        tmp.flag_wait = true;
+                if (item == "+last")        tmp -> flag_last = true;
+                if (item == "+keepalive")   tmp -> flag_keepalive = true;
+                if (item == "+wait")        tmp -> flag_wait = true;
             }
         }
         
     }
-    return tmp;
 error:
     throw runtime_error("exception during runtime.");
 }

@@ -24,7 +24,20 @@ void Init::ParseMasterConfig() {
     vector<string> sections = master -> ListEntities();
     for (string section: sections) {
         if (section == "nulltarget") continue;
-        
+        Job tmpjob;
+        try {
+            JobFromTable(&tmpjob, section, master -> GetInformationForEntity(section));
+        } catch(runtime_error) {
+            string msg = "parsing section ";
+            msg.append(section); msg.append(" failed.");
+            Common::Log("jobmgmt", msg, ERROR);
+        }
+        JOBS.push_back(tmpjob);
+    }
+    try {
+        JOBSDIR = master -> GetKeyForChild("nulltarget", "cfdir")[1];
+    } catch(out_of_range) {
+        Common::Log("jobmgmt", "parsing section nulltarget failed.", ERROR);
     }
 }
 
