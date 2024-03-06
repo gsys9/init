@@ -1,5 +1,8 @@
 #include <string>
+#include <vector>
+
 #include <globals.hh>
+#include <job.hh>
 
 bool        ARGS_TACET      = false;
 
@@ -12,3 +15,5 @@ utsname     SYSINFO;
 bool        SYSINFO_isopen  = false;
 
 int         IDCOUNT;
+
+vector<Job>  JOBS;

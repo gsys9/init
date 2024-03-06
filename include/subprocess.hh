@@ -12,9 +12,7 @@ using namespace std;
 class Subprocess {
 private:
     void InitInternal();
-    void WaitInternal();
     thread *waitthread;
-    void (*onfinish)(int);
 
 public:
     pid_t procpid;
@@ -24,14 +22,14 @@ public:
     Subprocess(string);
     Subprocess(vector<string>);
 
-    int Run();
+    int Run(void);
 
     // Where this process is no longer a *sub*process.
     // In 99% of situations this would rarely be used.
     // Left as public for the other 1%.
-    int Takeover();
+    int Takeover(void);
 
-    void SetFunctionOnFinish(void (*)(int));
+    void Wait(void);
     
 };
 

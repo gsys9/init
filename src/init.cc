@@ -4,6 +4,7 @@
 #include <fstream>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <iostream>
 
 #include <globals.hh>
 #include <common.hh>
@@ -11,6 +12,8 @@
 #include <config.hh>
 #include <init.hh>
 #include <signalhandlers.hh>
+#include <subprocess.hh>
+#include <job.hh>
 
 using namespace std;
 
@@ -21,6 +24,7 @@ void Init::ParseMasterConfig() {
     vector<string> sections = master -> ListEntities();
     for (string section: sections) {
         if (section == "nulltarget") continue;
+        
     }
 }
 
@@ -32,19 +36,17 @@ void Init::Main(vector<string> argv) {
     Common::WelcomeBanner();
     Common::Log("signalhandlers", "registering signal handlers...", DEFAULT);
     SignalHandlers::Register();
-#ifdef NOLOAD_EMERGENCY
+#if NOLOAD_EMERGENCY == true
     Common::Log("init", "requesting root login for debug...", WARN);
-    pid_t i = fork();
-    if (i == 0) {
-        execl("/sbin/sulogin", "/sbin/sulogin");
-    } else if (i == -1) {
-        Common::Log("fork", "failed to fork process", ERROR);
-    } else {
-        waitpid(i, NULL, 0);
-    }
+    Subprocess shell("/sbin/sulogin");
+    shell.Run();
+    shell.Wait();
+
 #endif
-    // Init::loadjobs();
-    // vector<vector<job>> order = Init::GetOrder(range(0, ID_COUNT-1));
+
+    Init::ParseMasterConfig();
+    // Init::loadjobs();    
+    // vector<vector<Job>> order = Init::GetOrder(range(0, ID_COUNT-1));
     // Init::ExecOrder(order);
 
     while (true);

@@ -2,11 +2,13 @@
     cfdir       : /usr/share/cascade/init.d
 
 @mountall
-    name        : Mount all filesystems in /etc/fstab
+    description : Mount all filesystems in /etc/fstab
     exec        : mount -a
     depends     :
+    runlevel    : 2
 
 @systemd-udevd
-    name        : udevd Device Manager
+    description : udevd Device Manager
     exec        : /lib/systemd/systemd-udevd
     depends     : mountall
+    runlevel    : 2

@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <thread>
+#include <iostream>
 
 #include <common.hh>
 #include <subprocess.hh>
@@ -10,12 +11,7 @@
 using namespace std;
 
 void Subprocess::InitInternal() {
-    this -> onfinish = NULL;
-}
-
-void Subprocess::WaitInternal() {
-    waitpid(this -> procpid, &this -> returncode, 0);
-    this -> onfinish(this -> returncode);
+    // Reserved for future use.
 }
 
 Subprocess::Subprocess(string cmd) {
@@ -35,29 +31,29 @@ int Subprocess::Run() {
     if (this -> procpid == 0) {
         int errexec = this -> Takeover();
         if (errexec != 0) {
-            Common::Log("subprocess", "could not launch process.");
+            Common::Log("subprocess", "could not launch process");
         }
     } 
     else if (this -> procpid == -1) {
-        Common::Log("subprocess", "failed to spawn child.");
+        Common::Log("subprocess", "failed to spawn child");
         return 1;
-    } 
-    else this -> waitthread = new thread((void (*)(void))&Subprocess::WaitInternal);
+    }
     
     return 0;
 }
 
 int Subprocess::Takeover() {
-    char *exec_args[this -> args.size() + 1];
+    char **exec_args = (char**)malloc(this -> args.size() + 1);
     int counter = 0;
     for (string argument: this -> args) {
         exec_args[counter] = (char*)argument.c_str();
         counter++;
     }
     exec_args[counter] = NULL;
-    return execvp(exec_args[0], exec_args);
+    int ret = execvp(exec_args[0], exec_args);
+    return ret;
 }
 
-void Subprocess::SetFunctionOnFinish(void (*func)(int)) {
-    this -> onfinish = func;
+void Subprocess::Wait() {
+    waitpid(this -> procpid, NULL, 0);
 }

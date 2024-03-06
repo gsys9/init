@@ -3,7 +3,7 @@
 
     #include <globals.hh>
 
-    #ifdef ENABLE_COLORS
+    #if ENABLE_COLORS == true
     
         #define RESET       "\033[0m"
 

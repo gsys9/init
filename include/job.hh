@@ -34,4 +34,6 @@ public:
     Job(void);
 };
 
+Job JobFromTable(string, vector<vector<string>>);
+
 #endif /* JOB_HH */

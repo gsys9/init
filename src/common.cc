@@ -105,22 +105,17 @@ void Common::WelcomeBanner() {
 }
 
 vector<string> Common::SplitString(string str, string delim) {
-    string tmp = str;
-    vector<string> total;
-    string cur_elem;
-    bool is_done;
-    while (!is_done) {
-        size_t place = tmp.find(delim);
-        if (place == string::npos) {
-            cur_elem = tmp.substr(0, tmp.size()); 
-            is_done = true;
-        } else {
-            cur_elem = tmp.substr(0, place-1);
-            tmp.replace(0, place+delim.size(), "");
-        }
-        total.push_back(cur_elem);
+    vector<string> tokens;
+    size_t pos = 0;
+    string token;
+
+    while ((pos = s.find(delim)) != string::npos) {
+        token = str.substr(0, pos);
+        tokens.push_back(token);
+        str.erase(0, pos+delim.length());
     }
-    return total;
+
+    return tokens;
 }
 
 void Common::TrimString(string& s) {
