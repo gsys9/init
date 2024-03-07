@@ -1,6 +1,6 @@
-runtimed (Runtime Daemon) is licensed under a 
-modified BSD 3-Clause License, to be known
-hereafter as the Runtime Daemon License 1.0.
+Cascade is licensed under a modified BSD 
+3-Clause License, to be known hereafter as 
+the Cascade License.
 
 Copyright (c) 2023-2024, Solomon Wood
 All rights reserved.
@@ -15,14 +15,14 @@ modification, are permitted provided that the following conditions are met:
    this list of conditions and the following disclaimer in the documentation
    and/or other materials provided with the distribution.
 
-3. Neither the name of runtimed nor the names of its
+3. Neither the name of Cascade nor the names of its
    contributors may be used to endorse or promote products derived from
    this software without specific prior written permission.
 
-4. The entire work, as a whole, must be licensed under this License to anyone 
-   who comes into possession of a copy. This License will therefore apply to 
+4. The entire work, as a whole, must be licensed under this license to anyone 
+   who comes into possession of a copy. This license will therefore apply to 
    the whole of the work, and all its parts, regardless of how they are packaged.
-   This License gives no permission to license the work in any other way, but it 
+   This license gives no permission to license the work in any other way, but it 
    does not invalidate such permission if you have separately received it.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"

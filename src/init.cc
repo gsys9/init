@@ -41,6 +41,11 @@ void Init::ParseMasterConfig() {
     }
 }
 
+// Must run only after JOBSDIR has been set.
+void Init::ParseConfigFiles() {
+    // Not implemented.
+}
+
 void Init::Main(vector<string> argv) {
     Common::OpenLog();
     Common::Log("cascade", "initialising...", GOOD);
